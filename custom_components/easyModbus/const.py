@@ -1,11 +1,11 @@
-"""Constants for the Ebyte M31 Modbus integration."""
+"""Constants for the EasyModbus integration."""
 from __future__ import annotations
 
 from dataclasses import dataclass
 
 from homeassistant.const import CONF_HOST, CONF_PORT
 
-DOMAIN = "ebyte_m31"
+DOMAIN = "easyModbus"
 
 DEFAULT_HOST = ""
 DEFAULT_PORT = 502
