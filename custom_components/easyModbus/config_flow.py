@@ -44,9 +44,9 @@ class ModbusBinaryConfigFlow(ConfigFlow, domain=DOMAIN):
         try:
             hub = EbyteM31Hub(ip_address,port)
             hub.async_validate_modbus_protocol()
-            await self.async_set_unique_id(f"{ip_address}:{port}")
+            await self.async_set_unique_id(ip_address)
             self._abort_if_unique_id_configured()
-            return self.async_create_entry(title=f"Modbus device at {ip_address}:{port}", data=user_input)
+            return self.async_create_entry(title="EasyModbus", data=user_input)
         except (ConnectionError, ModbusNotEnabledError):
             errors["base"] = "cannot_connect"
         finally:
