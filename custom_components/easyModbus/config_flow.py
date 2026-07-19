@@ -19,13 +19,12 @@ _LOGGER = logging.getLogger(__name__)
 
 STEP_USER_DATA_SCHEMA = vol.Schema(
     {
-        vol.Required(CONF_HOST, default=DEFAULT_HOST): vol.All(str, vol.Length(min=1)),
-        vol.Required(CONF_PORT, default=DEFAULT_PORT): vol.Coerce(int),
-        vol.Required(CONF_MODEL): vol.In(list(bridgeModels.keys())),
+        vol.Required(CONF_HOST, default=DEFAULT_HOST): str,
+        vol.Required(CONF_PORT, default=DEFAULT_PORT): int,
         vol.Required(CONF_INPUTS, default=8): int,
-        vol.Optional(CONF_FLIP_INPUTS, default=False): bool,
+        vol.Required(CONF_FLIP_INPUTS, default=False): bool,
         vol.Required(CONF_OUTPUTS, default=8): int,
-        vol.Optional(CONF_FLIP_OUTPUTS, default=False): bool,
+        vol.Required(CONF_FLIP_OUTPUTS, default=False): bool,
     }
 )
 
