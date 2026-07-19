@@ -1,2 +1,1 @@
-# EasyModbus-hacs
-Homeassistant integration for digital modbus inputs/outputs supporting visual configuration and flipping digital states
+Ebyte M31 series integration for home assistant for easy adding and configuration (as opposed to manual modbus integration)

@@ -1,0 +1,58 @@
+"""Config flow for the Ebyte M31 integration."""
+from __future__ import annotations
+
+import logging
+from typing import Any, override
+
+import voluptuous as vol
+
+from homeassistant import config_entries
+from homeassistant.const import CONF_HOST, CONF_PORT
+from homeassistant.core import callback
+from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
+from homeassistant.data_entry_flow import FlowResult
+
+from .const import DEFAULT_HOST, DEFAULT_PORT, DOMAIN, bridgeModels, CONF_MODEL, CONF_INPUTS, CONF_OUTPUTS, CONF_FLIP_INPUTS, CONF_FLIP_OUTPUTS
+from .hub import EbyteM31Hub, ModbusNotEnabledError
+
+_LOGGER = logging.getLogger(__name__)
+
+STEP_USER_DATA_SCHEMA = vol.Schema(
+    {
+        vol.Required(CONF_HOST, default=DEFAULT_HOST): vol.All(str, vol.Length(min=1)),
+        vol.Required(CONF_PORT, default=DEFAULT_PORT): vol.Coerce(int),
+        vol.Required(CONF_MODEL): vol.In(list(bridgeModels.keys())),
+        vol.Required(CONF_INPUTS, default=8): int,
+        vol.Optional(CONF_FLIP_INPUTS, default=False): bool,
+        vol.Required(CONF_OUTPUTS, default=8): int,
+        vol.Optional(CONF_FLIP_OUTPUTS, default=False): bool,
+    }
+)
+
+class ModbusBinaryConfigFlow(ConfigFlow, domain=DOMAIN):
+    VERSION = 1
+    DOMAIN = DOMAIN
+    @override
+    async def async_step_user(self, user_input: dict[str, Any] | None = None) -> ConfigFlowResult:
+     errors = {}
+     if user_input:
+        ip_address = user_input[CONF_HOST]
+        port = user_input[CONF_PORT]
+        CONF_INPUTS = user_input[CONF_INPUTS]
+        CONF_OUTPUTS = user_input[CONF_OUTPUTS]
+        CONF_FLIP_INPUTS = user_input[CONF_FLIP_INPUTS]
+        CONF_FLIP_OUTPUTS = user_input[CONF_FLIP_OUTPUTS]
+        try:
+            hub = EbyteM31Hub(ip_address,port)
+            hub.async_validate_modbus_protocol()
+            await self.async_set_unique_id(f"{ip_address}:{port}")
+            self._abort_if_unique_id_configured()
+            return self.async_create_entry(title=f"Modbus device at {ip_address}:{port}", data=user_input)
+        except (ConnectionError, ModbusNotEnabledError):
+            errors["base"] = "cannot_connect"
+        except Exception:  # noqa: BLE001
+            _LOGGER.exception("Unexpected error during config flow")
+            errors["base"] = "unknown"
+        finally:
+            await hub.async_close()   
+     return self.async_show_form(step_id="user", data_schema=STEP_USER_DATA_SCHEMA,errors=errors,)
