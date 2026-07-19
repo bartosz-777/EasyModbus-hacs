@@ -50,9 +50,6 @@ class ModbusBinaryConfigFlow(ConfigFlow, domain=DOMAIN):
             return self.async_create_entry(title=f"Modbus device at {ip_address}:{port}", data=user_input)
         except (ConnectionError, ModbusNotEnabledError):
             errors["base"] = "cannot_connect"
-        except Exception:  # noqa: BLE001
-            _LOGGER.exception("Unexpected error during config flow")
-            errors["base"] = "unknown"
         finally:
             await hub.async_close()   
      return self.async_show_form(step_id="user", data_schema=STEP_USER_DATA_SCHEMA,errors=errors,)
