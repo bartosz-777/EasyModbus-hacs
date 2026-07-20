@@ -21,9 +21,9 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
     {
         vol.Required(CONF_HOST, default=DEFAULT_HOST): str,
         vol.Required(CONF_PORT, default=DEFAULT_PORT): int,
-        vol.Required(CONF_INPUTS, default=8): int,
+        vol.Required("Inputs number", default=8): int,
         vol.Required(CONF_FLIP_INPUTS, default=False): bool,
-        vol.Required(CONF_OUTPUTS, default=8): int,
+        vol.Required("Outputs Number", default=8): int,
         vol.Required(CONF_FLIP_OUTPUTS, default=False): bool,
     }
 )
@@ -37,10 +37,10 @@ class ModbusBinaryConfigFlow(ConfigFlow, domain=DOMAIN):
      if user_input:
         ip_address = user_input[CONF_HOST]
         port = user_input[CONF_PORT]
-        CONF_INPUTS = user_input[CONF_INPUTS]
-        CONF_OUTPUTS = user_input[CONF_OUTPUTS]
-        CONF_FLIP_INPUTS = user_input[CONF_FLIP_INPUTS]
-        CONF_FLIP_OUTPUTS = user_input[CONF_FLIP_OUTPUTS]
+        CONF_INPUTS = user_input["Inputs number"]
+        CONF_OUTPUTS = user_input["Outputs number"]
+        #CONF_FLIP_INPUTS = user_input[CONF_FLIP_INPUTS]
+        #CONF_FLIP_OUTPUTS = user_input[CONF_FLIP_OUTPUTS]
         hub = None
         try:
             hub = ModbusHub(ip_address, port)
