@@ -37,12 +37,9 @@ class ModbusBinaryConfigFlow(ConfigFlow, domain=DOMAIN):
      if user_input:
         ip_address = user_input[CONF_HOST]
         port = user_input[CONF_PORT]
-        CONF_INPUTS = user_input[CONF_INPUTS]
-        CONF_OUTPUTS = user_input[CONF_OUTPUTS]
-        CONF_FLIP_INPUTS = user_input[CONF_FLIP_INPUTS]
-        CONF_FLIP_OUTPUTS = user_input[CONF_FLIP_OUTPUTS]
+        hub = None
         try:
-            hub = ModbusHub(ip_address,port)
+            hub = ModbusHub(ip_address, port)
             await hub.async_validate_modbus_protocol()
             await self.async_set_unique_id(ip_address)
             self._abort_if_unique_id_configured()
@@ -50,5 +47,6 @@ class ModbusBinaryConfigFlow(ConfigFlow, domain=DOMAIN):
         except (ConnectionError, ModbusNotEnabledError):
             errors["base"] = "cannot_connect"
         finally:
-            await hub.async_close()   
-     return self.async_show_form(step_id="user", data_schema=STEP_USER_DATA_SCHEMA,errors=errors,)
+            if hub is not None:
+                await hub.async_close()
+     return self.async_show_form(step_id="user", data_schema=STEP_USER_DATA_SCHEMA, errors=errors,)
