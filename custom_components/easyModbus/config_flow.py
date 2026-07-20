@@ -37,6 +37,10 @@ class ModbusBinaryConfigFlow(ConfigFlow, domain=DOMAIN):
      if user_input:
         ip_address = user_input[CONF_HOST]
         port = user_input[CONF_PORT]
+        CONF_INPUTS = user_input[CONF_INPUTS]
+        CONF_OUTPUTS = user_input[CONF_OUTPUTS]
+        CONF_FLIP_INPUTS = user_input[CONF_FLIP_INPUTS]
+        CONF_FLIP_OUTPUTS = user_input[CONF_FLIP_OUTPUTS]
         hub = None
         try:
             hub = ModbusHub(ip_address, port)
