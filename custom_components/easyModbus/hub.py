@@ -39,7 +39,7 @@ class ModbusHub:
         except ModbusException as err:
             raise ModbusNotEnabledError(str(err)) from err
 
-    async def async_read_discrete_inputs(self, count: int = DISCRETE_INPUT_COUNT, address: int = MODBUS_ADDRESS) -> list[bool]:
+    async def async_read_discrete_inputs(self, count: int, address: int = MODBUS_ADDRESS) -> list[bool]:
         """Read discrete inputs from the configured Modbus address and slave."""
         await asyncio.to_thread(self._connect)
         with self._lock:
