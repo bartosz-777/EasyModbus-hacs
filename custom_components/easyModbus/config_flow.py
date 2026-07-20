@@ -13,7 +13,7 @@ from homeassistant.config_entries import ConfigFlow, ConfigFlowResult
 from homeassistant.data_entry_flow import FlowResult
 
 from .const import DEFAULT_HOST, DEFAULT_PORT, DOMAIN, bridgeModels, CONF_MODEL, CONF_INPUTS, CONF_OUTPUTS, CONF_FLIP_INPUTS, CONF_FLIP_OUTPUTS
-from .hub import EbyteM31Hub, ModbusNotEnabledError
+from .hub import ModbusHub, ModbusNotEnabledError
 
 _LOGGER = logging.getLogger(__name__)
 
@@ -42,7 +42,7 @@ class ModbusBinaryConfigFlow(ConfigFlow, domain=DOMAIN):
         CONF_FLIP_INPUTS = user_input[CONF_FLIP_INPUTS]
         CONF_FLIP_OUTPUTS = user_input[CONF_FLIP_OUTPUTS]
         try:
-            hub = EbyteM31Hub(ip_address,port)
+            hub = ModbusHub(ip_address,port)
             await hub.async_validate_modbus_protocol()
             await self.async_set_unique_id(ip_address)
             self._abort_if_unique_id_configured()

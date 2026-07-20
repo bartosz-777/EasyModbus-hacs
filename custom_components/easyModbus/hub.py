@@ -11,14 +11,14 @@ from .const import MODBUS_ADDRESS, MODBUS_SLAVE, DISCRETE_INPUT_COUNT, CONF_MODE
 
 _LOGGER = logging.getLogger(__name__)
 
-_MODBUS_TIMEOUT = 5
+_MODBUS_TIMEOUT = 10
 
 
 class ModbusNotEnabledError(Exception):
     """Raised when the device does not answer Modbus requests."""
 
 
-class EbyteM31Hub:
+class ModbusHub:
     """Manage the Modbus TCP connection to the Ebyte M31 device."""
 
     def __init__(self, host: str, port: int) -> None:
