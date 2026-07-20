@@ -23,7 +23,7 @@ STEP_USER_DATA_SCHEMA = vol.Schema(
         vol.Required(CONF_PORT, default=DEFAULT_PORT): int,
         vol.Required("Inputs number", default=8): int,
         vol.Required(CONF_FLIP_INPUTS, default=False): bool,
-        vol.Required("Outputs Number", default=8): int,
+        vol.Required("Outputs number", default=8): int,
         vol.Required(CONF_FLIP_OUTPUTS, default=False): bool,
     }
 )
