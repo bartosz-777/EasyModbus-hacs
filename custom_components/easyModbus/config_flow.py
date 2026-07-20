@@ -43,7 +43,7 @@ class ModbusBinaryConfigFlow(ConfigFlow, domain=DOMAIN):
         CONF_FLIP_OUTPUTS = user_input[CONF_FLIP_OUTPUTS]
         try:
             hub = EbyteM31Hub(ip_address,port)
-            hub.async_validate_modbus_protocol()
+            await hub.async_validate_modbus_protocol()
             await self.async_set_unique_id(ip_address)
             self._abort_if_unique_id_configured()
             return self.async_create_entry(title="EasyModbus", data=user_input)
