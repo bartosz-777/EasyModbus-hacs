@@ -18,7 +18,7 @@ _LOGGER = logging.getLogger(__name__)
 class EbyteM31Coordinator(DataUpdateCoordinator[dict[str, bool]]):
     """Coordinate polling of the discrete input register values."""
 
-    def __init__(self, hass: HomeAssistant, hub: ModbusHub) -> None:
+    def __init__(self, hass: HomeAssistant, hub: ModbusHub,inputs: int,outputs: int,flipInputs: bool, flipOutputs: bool) -> None:
         super().__init__(
             hass,
             _LOGGER,
@@ -28,6 +28,6 @@ class EbyteM31Coordinator(DataUpdateCoordinator[dict[str, bool]]):
         self.hub = hub
 
     async def _async_update_data(self) -> dict[str, bool]:
-        values = await self.hub.async_read_discrete_inputs(count=CONF_INPUTS)
+        values = await self.hub.async_read_discrete_inputs(count=inputs)
         return {f"input_{index}": bool(value) for index, value in enumerate(values)}
 #bridgeModels[CONF_MODEL]["digital_inputs"]
