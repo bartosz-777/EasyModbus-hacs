@@ -26,8 +26,9 @@ class EbyteM31Coordinator(DataUpdateCoordinator[dict[str, bool]]):
             update_interval=timedelta(seconds=10),
         )
         self.hub = hub
+        self.inputs = inputs
 
     async def _async_update_data(self) -> dict[str, bool]:
-        values = await self.hub.async_read_discrete_inputs(count=inputs)
+        values = await self.hub.async_read_discrete_inputs(count=self.inputs)
         return {f"input_{index}": bool(value) for index, value in enumerate(values)}
 #bridgeModels[CONF_MODEL]["digital_inputs"]
