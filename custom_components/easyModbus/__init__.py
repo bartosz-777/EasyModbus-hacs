@@ -19,7 +19,7 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     port = config[CONF_PORT]
 
     hub = ModbusHub(host, port)
-    coordinator = EbyteM31Coordinator(hass, hub,config["Inputs number"],config["Outputs number"],true,true)
+    coordinator = EbyteM31Coordinator(hass, hub,config["Inputs number"],config["Outputs number"],True,True)
 
     await coordinator.async_config_entry_first_refresh()
 
