@@ -27,8 +27,12 @@ class EbyteM31Coordinator(DataUpdateCoordinator[dict[str, bool]]):
         )
         self.hub = hub
         self.inputs = inputs
+        self.flipInputs = flipInputs
 
     async def _async_update_data(self) -> dict[str, bool]:
         values = await self.hub.async_read_discrete_inputs(count=self.inputs)
-        return {f"input_{index}": bool(value) for index, value in enumerate(values)}
+        if self.flipInputs:
+            return {f"input_{index}": bool(not value) for index, value in enumerate(values)}
+        else:
+            return {f"input_{index}": bool(value) for index, value in enumerate(values)}
 #bridgeModels[CONF_MODEL]["digital_inputs"]
