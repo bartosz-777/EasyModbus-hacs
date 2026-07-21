@@ -54,3 +54,15 @@ bridgeModels = {
     "XFXX0800G": {"name": "XFXX0800G", "digital_inputs": 0, "digital_outputs": 0, "analog_inputs": 8, "analog_outputs": 0},
     "XGXX0800G": {"name": "XGXX0800G", "digital_inputs": 0, "digital_outputs": 0, "analog_inputs": 8, "analog_outputs": 0}
 }
+def get_binary_sensor_definitions(input_count: int) -> tuple[BinarySensorDefinition, ...]:
+    """Generate definitions for discrete input entities dynamically."""
+    return tuple(
+        BinarySensorDefinition(
+            key=f"input_{index}",
+            name=f"Discrete input {index}",
+            address=index,
+            icon="mdi:toggle-switch",
+        )
+        for index in range(input_count)
+    )
+

@@ -6,7 +6,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.core import HomeAssistant
 from homeassistant.helpers.entity_platform import AddEntitiesCallback
 
-from .const import BINARY_SENSOR_DEFINITIONS, DOMAIN, BinarySensorDefinition
+from .const import get_binary_sensor_definitions, DOMAIN, BinarySensorDefinition
 from .coordinator import EbyteM31Coordinator
 from .entity import EbyteM31Entity
 
@@ -17,9 +17,12 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     coordinator: EbyteM31Coordinator = hass.data[DOMAIN][entry.entry_id]["standard"]
+    config = {**entry.data, **entry.options}
+    inputs = config["Inputs number"]
+    sensor_defs = get_binary_sensor_definitions(inputs)
     async_add_entities(
         EbyteM31BinarySensor(coordinator, entry.entry_id, defn)
-        for defn in BINARY_SENSOR_DEFINITIONS
+        for defn in sensor_defs
     )
 
 
