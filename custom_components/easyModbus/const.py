@@ -15,7 +15,7 @@ MODBUS_SLAVE = 1
 DISCRETE_INPUT_COUNT = 8
 
 CONF_MODEL = "Model"
-CONF_INPUTS: int = 8
+CONF_INPUTS = "Inputs"
 CONF_OUTPUTS = "Outputs number"
 CONF_FLIP_INPUTS = "Flip inputs"
 CONF_FLIP_OUTPUTS = "Flip outputs"
