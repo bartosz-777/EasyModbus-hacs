@@ -9,7 +9,7 @@ from .const import CONF_MODEL, DOMAIN, CONF_FLIP_INPUTS, CONF_FLIP_OUTPUTS, CONF
 from .coordinator import EbyteM31Coordinator
 from .hub import ModbusHub
 
-PLATFORMS: list[Platform] = [Platform.BINARY_SENSOR, Platform.SWITCH]
+PLATFORMS = [Platform.BINARY_SENSOR, Platform.SWITCH, ]
 
 
 async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
