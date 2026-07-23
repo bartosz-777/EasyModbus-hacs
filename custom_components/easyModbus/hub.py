@@ -67,5 +67,5 @@ class ModbusHub:
             raise ModbusException(f"Error reading discrete inputs at {address}")
         return [bool(value) for value in result.bits]
         
-    def _switch_set(self,address:int,state:int) -> None:
+    def switch_set(self,address:int,state:int) -> None:
         self._client.write_coil(address=id, value=state,device_id=MODBUS_SLAVE)
