@@ -5,7 +5,7 @@ from homeassistant.config_entries import ConfigEntry
 from homeassistant.const import CONF_HOST, CONF_PORT, Platform
 from homeassistant.core import HomeAssistant
 
-from .const import CONF_MODEL, DOMAIN, CONF_FLIP_INPUTS, CONF_FLIP_OUTPUTS
+from .const import CONF_MODEL, DOMAIN, CONF_FLIP_INPUTS, CONF_FLIP_OUTPUTS, CONF_INPUTS, CONF_OUTPUTS
 from .coordinator import EbyteM31Coordinator
 from .hub import ModbusHub
 
@@ -17,9 +17,8 @@ async def async_setup_entry(hass: HomeAssistant, entry: ConfigEntry) -> bool:
     config = {**entry.data, **entry.options}
     host = config[CONF_HOST]
     port = config[CONF_PORT]
-    CONF_FLIP_INPUTS = config[CONF_FLIP_INPUTS]
     hub = ModbusHub(host, port)
-    coordinator = EbyteM31Coordinator(hass, hub,config["Inputs number"],config["Outputs number"],CONF_FLIP_INPUTS,config[CONF_FLIP_OUTPUTS])
+    coordinator = EbyteM31Coordinator(hass, hub,config[CONF_INPUTS],config[CONF_OUTPUTS],config[CONF_FLIP_INPUTS],config[CONF_FLIP_OUTPUTS])
 
     await coordinator.async_config_entry_first_refresh()
 

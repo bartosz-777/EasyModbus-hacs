@@ -22,3 +22,20 @@ class EbyteM31Entity(CoordinatorEntity[EbyteM31Coordinator]):
 
     async def async_update(self) -> None:
         await self.coordinator.async_request_refresh()
+
+class ModbusSwitchEntity(CoordinatorEntity[EbyteM31Coordinator]):
+
+    def __init__(self, coordinator: EbyteM31Coordinator, entry_id: str, key: str, name: str) -> None:
+        super().__init__(coordinator)
+        self._attr_has_entity_name = True
+        self._attr_name = name
+        self._attr_unique_id = f"{entry_id}_{key}"
+        self._key = key
+        
+    @property
+    def is_on(self) -> bool:
+        return self.coordinator.data
+        
+    @override
+    def turn_on(self, **kwargs: Any) -> None:
+        

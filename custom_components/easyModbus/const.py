@@ -15,7 +15,7 @@ MODBUS_SLAVE = 1
 DISCRETE_INPUT_COUNT = 8
 
 CONF_MODEL = "Model"
-CONF_INPUTS = "Inputs"
+CONF_INPUTS = "Inputs number"
 CONF_OUTPUTS = "Outputs number"
 CONF_FLIP_INPUTS = "Flip inputs"
 CONF_FLIP_OUTPUTS = "Flip outputs"
@@ -65,4 +65,14 @@ def get_binary_sensor_definitions(input_count: int) -> tuple[BinarySensorDefinit
         )
         for index in range(input_count)
     )
-
+def get_switch_definitions(outputs_count: int) -> tuple[SwitchDefinition, ...]:
+    "Create definitions for outputs(switches)"
+    return tuple(
+        SwitchDefinition(
+            key=f"output_{index}",
+            name=f"Relay {index}",
+            address=index,
+            icon="mdi:toggle-switch",
+        )
+        for index in range(outputs_count)
+    )
