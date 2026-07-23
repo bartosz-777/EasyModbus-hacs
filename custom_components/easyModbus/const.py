@@ -68,7 +68,7 @@ def get_binary_sensor_definitions(input_count: int) -> tuple[BinarySensorDefinit
 def get_switch_definitions(outputs_count: int) -> tuple[BinarySensorDefinition, ...]:
     "Create definitions for outputs(switches)"
     return tuple(
-        SwitchDefinition(
+        BinarySensorDefinition(
             key=f"output_{index}",
             name=f"Relay {index}",
             address=index,
