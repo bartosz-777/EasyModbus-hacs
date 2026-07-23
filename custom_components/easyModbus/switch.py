@@ -14,7 +14,7 @@ async def async_setup_entry(
     async_add_entities: AddEntitiesCallback,
 ) -> None:
     coordinator: EbyteM31Coordinator = hass.data[DOMAIN][entry.entry_id]["standard"]
-    hub = hass.data[DOMAIN][entry.entry_id]["hub"]
+    hub: ModbusHub = hass.data[DOMAIN][entry.entry_id]["hub"]
     config = {**entry.data, **entry.options}
     outputs = config[CONF_OUTPUTS]
     switch_defs = get_switch_definitions(outputs)
