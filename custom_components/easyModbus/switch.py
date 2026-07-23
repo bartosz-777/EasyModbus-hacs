@@ -37,6 +37,7 @@ class ModbusSwitch(EbyteM31Entity, SwitchEntity):
         if defn.icon:
             self._attr_icon = defn.icon
         self._is_on = False
+        self.hub = hub
 
     @property
     def is_on(self) -> bool | None:
