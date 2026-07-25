@@ -5,6 +5,7 @@ from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.device_registry import DeviceInfo
 
 from .coordinator import EbyteM31Coordinator
+from .const import DOMAIN
 
 
 class EbyteM31Entity(CoordinatorEntity[EbyteM31Coordinator]):
