@@ -15,6 +15,11 @@ class EbyteM31Entity(CoordinatorEntity[EbyteM31Coordinator]):
         self._attr_name = name
         self._attr_unique_id = f"{entry_id}_{key}"
         self._key = key
+        self._attr_device_info = DeviceInfo(
+            name="Modbus device",
+            model="v0.1",
+            manufacturer="Ebyte",
+        )
 
     @property
     def available(self) -> bool:
