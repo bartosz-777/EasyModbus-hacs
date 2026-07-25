@@ -20,6 +20,7 @@ class EbyteM31Entity(CoordinatorEntity[EbyteM31Coordinator]):
         self._key = key
         self._attr_device_info = DeviceInfo(
             name="Modbus device",
+            identifiers={(DOMAIN, self._attr_unique_id)},
             model="v0.1",
             manufacturer="Ebyte",
         )
