@@ -39,6 +39,14 @@ class ModbusSwitch(EbyteM31Entity, SwitchEntity):
             self._attr_icon = defn.icon
         self._is_on = False
         self.hub = hub
+        self._id: str = entry_id
+        self._attr_unique_id = f"{entry_id}_{key}"
+        self._attr_device_info = DeviceInfo(
+            identifiers={(DOMAIN, self._attr_unique_id)},
+            manufacturer="Modbus orgnization",
+            model="unkown",
+            name=defn.name,
+        )
 
     @property
     def is_on(self) -> bool | None:
