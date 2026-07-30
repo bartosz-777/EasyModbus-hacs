@@ -33,7 +33,7 @@ class ModbusSwitch(EbyteM31Entity, SwitchEntity):
         entry_id: str,
         defn: BinarySensorDefinition,
     ) -> None:
-        super().__init__(coordinator, entry_id, defn.key, defn.name)
+        super().__init__(coordinator, f"{entry_id}_{defn.key}", defn.key, defn.name)
         self._defn = defn
         if defn.icon:
             self._attr_icon = defn.icon
