@@ -53,5 +53,5 @@ class ModbusSwitch(EbyteM31Entity, SwitchEntity):
 
     def turn_off(self, **kwargs: Any):
         """Turn the switch off."""
-        self.hub.switch_set(self._defn.address, 1 if config[CONF_FLIP_OUTPUTS] else 0)
+        self.hub.switch_set(self._defn.address, 1 if config[CONF_FLIP_OUTPUTS] else 0)
         self._is_on = False
