@@ -1,1 +1,1 @@
-Ebyte M31 series integration for home assistant for easy adding and configuration (as opposed to manual modbus integration)
+Universal modbus TCP integration with visual configuration(ConfigFlow) for HA, currently supports Digital IO, with option to flip state to match actual state, I'm planning to add mire features so stay tuned
