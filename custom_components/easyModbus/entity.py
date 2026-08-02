@@ -3,9 +3,9 @@ from __future__ import annotations
 
 from homeassistant.helpers.update_coordinator import CoordinatorEntity
 from homeassistant.helpers.device_registry import DeviceInfo
-
+from homeassistant.const import CONF_HOST, CONF_PORT, Platform
 from .coordinator import EbyteM31Coordinator
-from .const import DOMAIN
+from .const import DOMAIN, CONF_PORT, CONF_HOST
 
 
 class EbyteM31Entity(CoordinatorEntity[EbyteM31Coordinator]):
@@ -19,8 +19,9 @@ class EbyteM31Entity(CoordinatorEntity[EbyteM31Coordinator]):
         self._attr_name = name
         self._attr_unique_id = f"{entry_id}_{key}"
         self._key = key
+        self._config = {**entry.data, **entry.options}
         self._attr_device_info = DeviceInfo(
-            name="Modbus device",
+            name= f"Modbus device at {CONF_HOST}",
             identifiers={(DOMAIN, entry_id) },
             model="v0.1",
             manufacturer="Ebyte",
