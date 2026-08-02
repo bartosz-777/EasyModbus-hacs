@@ -20,7 +20,7 @@ async def async_setup_entry(
     outputs = config[CONF_OUTPUTS]
     switch_defs = get_switch_definitions(outputs)
     async_add_entities(
-        ModbusSwitch(coordinator,hub, entry.entry_id, defn)
+        ModbusSwitch(coordinator,hub, entry , defn)
         for defn in switch_defs
     )
 
@@ -30,10 +30,10 @@ class ModbusSwitch(EbyteM31Entity, SwitchEntity):
         self,
         coordinator: EbyteM31Coordinator,
         hub: ModbusHub,
-        entry_id: str,
+        entry: ConfigEntry,
         defn: BinarySensorDefinition,
     ) -> None:
-        super().__init__(coordinator, f"{entry_id}_{defn.key}", defn.key, defn.name)
+        super().__init__(coordinator, entry.entry_id , defn.key, defn.name)
         self._defn = defn
         if defn.icon:
             self._attr_icon = defn.icon
