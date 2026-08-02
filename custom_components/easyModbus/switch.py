@@ -39,7 +39,7 @@ class ModbusSwitch(EbyteM31Entity, SwitchEntity):
             self._attr_icon = defn.icon
         self._is_on = False
         self.hub = hub
-        config = {**entry.data, **entry.options}
+        self._config = {**entry.data, **entry.options}
 
     @property
     def is_on(self) -> bool | None:
@@ -48,10 +48,10 @@ class ModbusSwitch(EbyteM31Entity, SwitchEntity):
 
     def turn_on(self, **kwargs: Any):
         """Turn the switch on."""
-        self.hub.switch_set(self._defn.address, 0 if config[CONF_FLIP_OUTPUTS] else 1)
+        self.hub.switch_set(self._defn.address, 0 if self._config[CONF_FLIP_OUTPUTS] else 1)
         self._is_on = True
 
     def turn_off(self, **kwargs: Any):
         """Turn the switch off."""
-        self.hub.switch_set(self._defn.address, 1 if config[CONF_FLIP_OUTPUTS] else 0)
+        self.hub.switch_set(self._defn.address, 1 if self._config[CONF_FLIP_OUTPUTS] else 0)
         self._is_on = False
