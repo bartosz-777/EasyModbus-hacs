@@ -68,6 +68,6 @@ class ModbusHub:
         return [bool(value) for value in result.bits]
         
     def switch_set(self, address: int, state: int) -> None:
-        self._connect()
+        await asyncio.to_thread(self._connect)
         with self._lock:
             self._client.write_coil(address=address, value=state, device_id=MODBUS_SLAVE)

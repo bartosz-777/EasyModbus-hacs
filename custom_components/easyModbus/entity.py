@@ -19,8 +19,9 @@ class EbyteM31Entity(CoordinatorEntity[EbyteM31Coordinator]):
         self._attr_name = name
         self._attr_unique_id = f"{entry_id}_{key}"
         self._key = key
+        self._host = hass.data[DOMAIN][entry_id]["host"]
         self._attr_device_info = DeviceInfo(
-            name= f"Modbus device at {CONF_HOST}",
+            name= f"Modbus device at {host}",
             identifiers={(DOMAIN, entry_id) },
             model="v0.1",
             manufacturer="Ebyte",
